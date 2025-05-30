@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Contact from './Pages/contact/Contact';
 import Products from './Pages/products/Products';
 import Header from './components/Header';
-import Home from './Pages/Home/Home';
+import Home from './Pages/homePage/Home';
 
 
 function App() {
