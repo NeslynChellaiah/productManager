@@ -1,7 +1,7 @@
 import { Col, Container, Row } from "react-bootstrap";
-import Empty from "../../components/Empty";
-import AddProduct from "../../components/AddProduct";
-import ProductCard from "../../components/ProductCard";
+import Empty from "../components/Empty";
+import AddProduct from "../components/AddProduct";
+import ProductCard from "../components/ProductCard";
 
 
 const Products = () => {
