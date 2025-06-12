@@ -70,6 +70,8 @@ const { items = [], loading } = useSelector(state => state.products);
     },[dispatch])
 
     return (
+        <>
+             <Header></Header>
         <Container className="mt-4">
             <div className="d-flex justify-content-end mb-4">
                 <Button variant="primary" onClick={handleAdd}><i className="bi bi-plus-circle me-2"></i>Add Product</Button>
@@ -104,6 +106,7 @@ const { items = [], loading } = useSelector(state => state.products);
 
             )}
         </Container>
+        </>
     )
 }
 

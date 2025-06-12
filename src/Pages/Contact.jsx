@@ -2,6 +2,8 @@
 const Contact = () => {
   return (
     <>
+         <Header></Header>
+
       <div className="d-flex justify-content-center align-items-center min-vh-100 bg-light">
         <div className="text-center p-4 border rounded bg-white shadow-sm">
           <h2 className="mb-4">Contact Us</h2>

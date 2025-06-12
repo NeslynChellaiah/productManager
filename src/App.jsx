@@ -9,18 +9,19 @@ import Home from './Pages/Home';
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Signup from './Pages/Signup';
 
 
 function App() {
 
   return (
     <section className='d-flex flex-column vh-100'>
-     <Header></Header>
      <Router>
       <Routes>
         <Route path='/' element={<Home/>}></Route>
         <Route path='/contact' element={<Contact/>}></Route>
         <Route path='/products' element={<Products/>}></Route>
+        <Route path='/register' element={<Signup/>}></Route>
       </Routes>
      </Router>
      <ToastContainer position='top-right' autoClose={3000} />
