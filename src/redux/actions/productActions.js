@@ -19,7 +19,7 @@ export const DELETE_PRODUCTS_FAILURE = "DELETE_PRODUCTS_FAILURE";
 export const fetchProducts = () => async (dispatch) => {
     dispatch({ type: FETCH_PRODUCTS_REQUEST });
     try {
-        const res = await fetch("http://localhost:5400/api/products");
+        const res = await fetch("https://fakestoreapi.com/products");
         const data = await res.json();
 
         dispatch({ type: FETCH_PRODUCTS_SUCCESS, payload: data });
@@ -33,7 +33,7 @@ export const fetchProducts = () => async (dispatch) => {
 export const addProducts = (product) => async (dispatch) => {
     dispatch({ type: CREATE_PRODUCTS_REQUEST });
     try {
-        const res = await fetch("http://localhost:5400/api/products", {
+        const res = await fetch("https://fakestoreapi.com/products", {
             method: 'POST',
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(product)
@@ -53,7 +53,7 @@ export const addProducts = (product) => async (dispatch) => {
 export const updateProducts = (product) => async (dispatch) => {
     dispatch({ type: UPDATE_PRODUCTS_REQUEST });
     try {
-        const res = await fetch("http://localhost:5400/api/products/"+product?.id, {
+        const res = await fetch("https://fakestoreapi.com/products/"+product?.id, {
             method: 'PUT',
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(product)
@@ -74,7 +74,7 @@ export const updateProducts = (product) => async (dispatch) => {
 export const deleteProducts = (id) => async (dispatch) => {
     dispatch({ type: DELETE_PRODUCTS_REQUEST });
     try {
-        await fetch("http://localhost:5400/api/products/" + id, {
+        await fetch("https://fakestoreapi.com/products/" + id, {
             method: "DELETE"
         });
 
