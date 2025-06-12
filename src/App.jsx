@@ -4,7 +4,6 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Contact from './Pages/Contact';
 import Products from './Pages/Products';
-import Header from './components/Header';
 import Home from './Pages/Home';
 
 import { ToastContainer } from "react-toastify";

@@ -4,6 +4,8 @@ import AddProduct from "../components/AddProduct";
 import ProductCard from "../components/ProductCard";
 import { useEffect, useState } from "react";
 import ProductModal from "../components/ProductModal";
+import Header from "../components/Header"
+
 import { useDispatch, useSelector } from "react-redux";
 import { addProducts, deleteProducts, fetchProducts, updateProducts } from "../redux/actions/productActions";
 
@@ -71,7 +73,7 @@ const { items = [], loading } = useSelector(state => state.products);
 
     return (
         <>
-             <Header></Header>
+             <Header/>
         <Container className="mt-4">
             <div className="d-flex justify-content-end mb-4">
                 <Button variant="primary" onClick={handleAdd}><i className="bi bi-plus-circle me-2"></i>Add Product</Button>

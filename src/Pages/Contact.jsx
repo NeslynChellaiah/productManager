@@ -1,8 +1,9 @@
+import Header from "../components/Header"
 
 const Contact = () => {
   return (
     <>
-         <Header></Header>
+         <Header />
 
       <div className="d-flex justify-content-center align-items-center min-vh-100 bg-light">
         <div className="text-center p-4 border rounded bg-white shadow-sm">
