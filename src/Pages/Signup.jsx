@@ -1,14 +1,20 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import logo from '../assets/logo.png';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { signup } from "../redux/actions/authActions";
+import { Link } from "react-router-dom";
 
 const Signup = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const SignupSchema = Yup.object().shape({
-    fullname: Yup.string().required("Fullname is required"),
+    name: Yup.string().required("Fullname is required"),
     email: Yup.string().email("Invalid email").required("Email is required"),
-    phone: Yup.string()
-      .matches(/^[0-9]{10,15}$/, "Phone must be 10-15 digits")
-      .required("Phone is required"),
+    // phone: Yup.string()
+    //   .matches(/^[0-9]{10,15}$/, "Phone must be 10-15 digits")
+    //   .required("Phone is required"),
     password: Yup.string()
       .min(6, "Minimum 6 characters")
       .required("Password is required"),
@@ -30,25 +36,38 @@ const Signup = () => {
         <h3 className="mb-4 text-center">Sign Up</h3>
         <Formik
           initialValues={{
-            fullname: "",
+            name: "",
             email: "",
-            phone: "",
             password: "",
             confirmPassword: "",
           }}
           validationSchema={SignupSchema}
-          onSubmit={(values, { resetForm }) => {
-            console.log("Form values", values);
-            resetForm();
+          onSubmit={async (values, {
+            setSubmitting,
+            resetForm
+          }) => {
+            console.log("Submitting values:", values);
+  try {
+    const success = await dispatch(signup(values));
+    console.log("Signup result:", success);
+    if (success) {
+      resetForm();
+      navigate("/products");
+    }
+  } catch (e) {
+    console.error("Signup error:", e);
+  } finally {
+    setSubmitting(false);
+  }
           }}
         >
           {({ isSubmitting }) => (
             <Form>
               <div className="mb-2">
                 <label className="form-label">Fullname</label>
-                <Field type="text" name="fullname" className="form-control" />
+                <Field type="text" name="name" className="form-control" />
                 <ErrorMessage
-                  name="fullname"
+                  name="name"
                   component="div"
                   className="text-danger"
                 />
@@ -64,7 +83,7 @@ const Signup = () => {
                 />
               </div>
 
-              <div className="mb-2">
+              {/* <div className="mb-2">
                 <label className="form-label">Phone</label>
                 <Field type="text" name="phone" className="form-control" />
                 <ErrorMessage
@@ -72,7 +91,7 @@ const Signup = () => {
                   component="div"
                   className="text-danger"
                 />
-              </div>
+              </div> */}
 
               <div className="mb-2">
                 <label className="form-label">Password</label>
@@ -113,6 +132,10 @@ const Signup = () => {
             </Form>
           )}
         </Formik>
+        <div className="text-center mt-3">
+  <span>Have an account? </span>
+  <Link to="/login">Sign In</Link>
+</div>
       </div>
     </div>)
 }

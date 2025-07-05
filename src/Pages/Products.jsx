@@ -99,7 +99,7 @@ const { items = [], loading } = useSelector(state => state.products);
                 <Empty message={"We are currently out of stock"} />
             ) : (
                 <Row className="g-4">
-                    {items.map((prod) => (
+                    {items?.map((prod) => (
                         <Col key={prod.id} xs={12} sm={6} md={3} lg={3}>
                             <ProductCard product={prod} onEdit={()=> handleEdit(prod)} onDelete={() => {handleDelete(prod.id)}}/>
                         </Col>

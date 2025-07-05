@@ -17,23 +17,39 @@ export const DELETE_PRODUCTS_SUCCESS = "DELETE_PRODUCTS_SUCCESS";
 export const DELETE_PRODUCTS_FAILURE = "DELETE_PRODUCTS_FAILURE";
 
 export const fetchProducts = () => async (dispatch) => {
-    dispatch({ type: FETCH_PRODUCTS_REQUEST });
-    try {
-        const res = await fetch("https://fakestoreapi.com/products");
-        const data = await res.json();
+  dispatch({ type: "FETCH_PRODUCTS_REQUEST" });
 
-        dispatch({ type: FETCH_PRODUCTS_SUCCESS, payload: data });
-    } catch (err) {
-        dispatch({ type: FETCH_PRODUCTS_FAILURE, payload: err.message });
-        toast.err("Failed to fetch products")
+  try {
+    const res = await fetch("https://adv-web-dev-backend.onrender.com/api/products", {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`, // add token here if needed
+        "Content-Type": "application/json",
+      },
+    });
 
+    const data = await res.json();
+    if (!res.ok) {
+      // If the response status is not OK (e.g. 401), throw it to be caught
+      throw new Error(data.message || "Failed to fetch products");
     }
-}
+
+    if (!Array.isArray(data?.data)) {
+      // If backend doesn't return an array, something went wrong
+      throw new Error("Invalid data format: expected array");
+    }
+
+    dispatch({ type: "FETCH_PRODUCTS_SUCCESS", payload: data });
+  } catch (err) {
+    dispatch({ type: "FETCH_PRODUCTS_FAILURE", payload: err.message });
+    // Assuming 'toast' is a defined utility for showing notifications
+    toast.error(err.message || "Something went wrong");
+  }
+};
 
 export const addProducts = (product) => async (dispatch) => {
     dispatch({ type: CREATE_PRODUCTS_REQUEST });
     try {
-        const res = await fetch("https://fakestoreapi.com/products", {
+        const res = await fetch("https://adv-web-dev-backend.onrender.com/api/products", {
             method: 'POST',
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(product)
@@ -53,7 +69,7 @@ export const addProducts = (product) => async (dispatch) => {
 export const updateProducts = (product) => async (dispatch) => {
     dispatch({ type: UPDATE_PRODUCTS_REQUEST });
     try {
-        const res = await fetch("https://fakestoreapi.com/products/"+product?.id, {
+        const res = await fetch("https://adv-web-dev-backend.onrender.com/api/products/"+product?.id, {
             method: 'PUT',
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(product)
@@ -74,7 +90,7 @@ export const updateProducts = (product) => async (dispatch) => {
 export const deleteProducts = (id) => async (dispatch) => {
     dispatch({ type: DELETE_PRODUCTS_REQUEST });
     try {
-        await fetch("https://fakestoreapi.com/products/" + id, {
+        await fetch("https://adv-web-dev-backend.onrender.com/api/products/" + id, {
             method: "DELETE"
         });
 
